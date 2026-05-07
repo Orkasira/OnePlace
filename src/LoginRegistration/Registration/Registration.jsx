@@ -27,7 +27,12 @@ function Registration({ onRegister }) {
   // handle input change
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   // registration request // registration request //
