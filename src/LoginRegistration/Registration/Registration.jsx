@@ -1,6 +1,6 @@
 import "./Registration.css";
 import photo from "../../assets/62bc5492a876268b6b9fc395f006a9259cafde47.png";
-import react, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import eyeview from "../../assets/eyeview.png";
 import eyehide from "../../assets/eyehide.png";
@@ -64,6 +64,7 @@ function Registration({ onRegister }) {
       valid = false;
     } else {
       setConfirmError("");
+      3;
     }
 
     if (!valid) return;
@@ -87,8 +88,13 @@ function Registration({ onRegister }) {
             accept: "application/json",
           },
           body: formData,
-        }
+        },
       );
+
+      if (!res.ok) {
+        console.error("Request failed");
+        return;
+      }
 
       const data = await res.json();
 
@@ -116,8 +122,6 @@ function Registration({ onRegister }) {
         onRegister(newUser);
         navigate("/ProductPage");
       }
-
-      console.log("Response:", data);
     } catch (err) {
       console.error("Error:", err);
     }
@@ -254,7 +258,7 @@ function Registration({ onRegister }) {
             </div>
 
             <button type="submit" className="registration-btn">
-              Log in
+              Sign up
             </button>
 
             <p className="register-link-container">
