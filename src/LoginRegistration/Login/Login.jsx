@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import photo from "../../assets/62bc5492a876268b6b9fc395f006a9259cafde47.png";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import eyeview from "../../assets/eyeview.png";
 import eyehide from "../../assets/eyehide.png";
-import { useNavigate } from "react-router-dom";
 import defaultphoto from "../../assets/defaultphoto.jpg";
 
 function Login({ onLogin }) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [show, setShow] = useState(false);
+
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -50,9 +53,11 @@ function Login({ onLogin }) {
 
     try {
       const formData = new FormData();
+
       formData.append("username", form.username);
       formData.append("email", form.email);
       formData.append("password", form.password);
+
       const res = await fetch(
         "https://api.redseam.redberryinternship.ge/api/login",
         {
@@ -64,20 +69,21 @@ function Login({ onLogin }) {
         },
       );
 
+      const data = await res.json();
+
       if (res.status === 200) {
-        const data = await res.json();
         const loggedUser = {
           username: data.username,
           email: data.email,
           photo: data.profile_photo || defaultphoto,
         };
+
         onLogin(loggedUser);
         navigate("/ProductPage");
       } else {
         alert("Login failed. Please check your Email or password.");
       }
 
-      const data = await res.json();
       console.log(data);
     } catch (err) {
       console.error("Error:", err);
@@ -96,7 +102,8 @@ function Login({ onLogin }) {
         <div className="photo-container">
           <img src={photo} alt="photo" className="photo" />
         </div>
-        <form action="" className="form-container" onSubmit={handleSubmit}>
+
+        <form className="form-container" onSubmit={handleSubmit}>
           <h1 className="login-title">Log in</h1>
 
           <div className="form-inputs-container">
@@ -109,9 +116,11 @@ function Login({ onLogin }) {
                 value={form.email}
                 className="emailInput"
               />
+
               {emailError && (
                 <div className="validation-errors">{emailError}</div>
               )}
+
               <div className="passwordInputToggle">
                 <input
                   type={show ? "text" : "password"}
@@ -121,6 +130,7 @@ function Login({ onLogin }) {
                   value={form.password}
                   className="passInput"
                 />
+
                 <span onClick={togglePassword}>
                   {show ? (
                     <img src={eyeview} alt="eye" className="eye" />
@@ -130,7 +140,9 @@ function Login({ onLogin }) {
                 </span>
 
                 {passwordError && (
-                  <div className="pass-validation-errors">{passwordError}</div>
+                  <div className="pass-validation-errors">
+                    {passwordError}
+                  </div>
                 )}
               </div>
             </div>
