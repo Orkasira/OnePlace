@@ -39,7 +39,7 @@ function ProductPage() {
           const result = await res.json();
 
           allProducts = [...allProducts, ...result.data];
-          totalPages = result.meta.last_page; // API-ს structure-ზეა დამოკიდებული
+          totalPages = result.meta.last_page;
           page++;
         } while (page <= totalPages);
 
