@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 function SingleProductPage({ cartItems, setCartItems }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [fade, setFade] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -23,13 +21,38 @@ function SingleProductPage({ cartItems, setCartItems }) {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await fetch(
-        `https://api.redseam.redberryinternship.ge/api/products/${id}`,
-        { headers: { accept: "application/json" } }
-      );
-      const result = await res.json();
-      setProduct(result);
+      try {
+        const res = await fetch(`https://dummyjson.com/products/${id}`, {
+          headers: { accept: "application/json" },
+        });
+
+        const result = await res.json();
+
+        const normalizedProduct = {
+          ...result,
+          name: result.title || result.name || "Unnamed Product",
+          cover_image:
+            result.thumbnail || result.images?.[0] || result.cover_image || "",
+          images:
+            Array.isArray(result.images) && result.images.length > 0
+              ? result.images
+              : [result.thumbnail].filter(Boolean),
+          available_colors: result.available_colors || [],
+          available_sizes: result.available_sizes || [],
+          brand:
+            typeof result.brand === "string"
+              ? { name: result.brand, image: "" }
+              : result.brand || { name: "Unknown brand", image: "" },
+          description: result.description || "No description available.",
+        };
+
+        setProduct(normalizedProduct);
+      } catch (err) {
+        console.error("Error fetching product:", err);
+        setProduct(null);
+      }
     };
+
     fetchProduct();
   }, [id]);
 
@@ -38,14 +61,6 @@ function SingleProductPage({ cartItems, setCartItems }) {
   useEffect(() => {
     if (product) {
       setSelectedImage(product.cover_image);
-
-      if (product.available_colors?.length > 0) {
-        setSelectedColor(product.available_colors[0]);
-      }
-
-      if (product.available_sizes?.length > 0) {
-        setSelectedSize(product.available_sizes[0]);
-      }
     }
   }, [product]);
 
@@ -65,20 +80,15 @@ function SingleProductPage({ cartItems, setCartItems }) {
   const addToCart = () => {
     if (!product) return;
 
-    const existing = cartItems.find(
-      (item) =>
-        item.id === product.id &&
-        item.size === selectedSize &&
-        item.color === selectedColor
-    );
+    const existing = cartItems.find((item) => item.id === product.id);
 
     if (existing) {
       setCartItems(
         cartItems.map((item) =>
           item === existing
             ? { ...item, quantity: selectedQuantity || 1 }
-            : item
-        )
+            : item,
+        ),
       );
     } else {
       setCartItems([
@@ -87,8 +97,6 @@ function SingleProductPage({ cartItems, setCartItems }) {
           id: product.id,
           name: product.name,
           price: product.price,
-          color: selectedColor,
-          size: selectedSize,
           image: selectedImage,
           quantity: selectedQuantity || 1,
         },
@@ -98,28 +106,23 @@ function SingleProductPage({ cartItems, setCartItems }) {
     setShowSidebar(true);
   };
 
-  const updateQuantity = (id, size, color, delta) => {
+  const updateQuantity = (id, delta) => {
     setCartItems((items) =>
       items.map((item) =>
-        item.id === id && item.size === size && item.color === color
+        item.id === id
           ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
+          : item,
+      ),
     );
   };
 
-  const removeItem = (id, size, color) => {
-    setCartItems((items) =>
-      items.filter(
-        (item) =>
-          !(item.id === id && item.size === size && item.color === color)
-      )
-    );
+  const removeItem = (id) => {
+    setCartItems((items) => items.filter((item) => item.id !== id));
   };
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
-    0
+    0,
   );
   const total = subtotal + deliveryPrice;
 
@@ -162,45 +165,7 @@ function SingleProductPage({ cartItems, setCartItems }) {
         <div className="product-detail-content">
           <h1 className="product-name">{product.name}</h1>
           <p className="product-price">$ {product.price}</p>
-          <p className="color-name">
-            Color: {selectedColor ? selectedColor : "—"}
-          </p>
-          <div className="product-colors">
-            {product.available_colors && product.available_colors.length > 0 ? (
-              product.available_colors.map((color, index) => (
-                <div
-                  key={index}
-                  className="color-box"
-                  style={{
-                    backgroundColor: color,
-                    border: `3px solid ${
-                      selectedColor === color ? "#4e4e4eff" : "#ccc"
-                    }`,
-                  }}
-                  onClick={() => setSelectedColor(color)}
-                ></div>
-              ))
-            ) : (
-              <p>No colors available</p>
-            )}
-          </div>
-          <p className="size-name">Size: {selectedSize ? selectedSize : "—"}</p>
-          <div className="product-sizes">
-            {product.available_sizes && product.available_sizes.length > 0 ? (
-              product.available_sizes.map((size, index) => (
-                <div
-                  key={index}
-                  className="size-box"
-                  onClick={() => setSelectedSize(size)}
-                >
-                  {size}
-                </div>
-              ))
-            ) : (
-              <p>No sizes available</p>
-            )}
-          </div>
-          <p className="quantity-name"> Quantity</p>
+          <p className="quantity-name">Quantity</p>
           <select
             className="quantity-select"
             value={selectedQuantity || 1}
@@ -220,9 +185,13 @@ function SingleProductPage({ cartItems, setCartItems }) {
           <div className="product-description-container">
             <div className="details-header">
               <h2>Details</h2>
-              <img src={product.brand.image} alt={product.brand.name} />
+              {product.brand?.image ? (
+                <img src={product.brand.image} alt={product.brand.name} />
+              ) : null}
             </div>
-            <p className="product-brand">Brand: {product.brand.name}</p>
+            <p className="product-brand">
+              Brand: {product.brand?.name || "Unknown brand"}
+            </p>
             <p className="product-description">{product.description}</p>
           </div>
         </div>
@@ -272,31 +241,19 @@ function SingleProductPage({ cartItems, setCartItems }) {
                         <p className="item-name">{item.name}</p>
                         <p className="item-price">$ {item.price}</p>
                       </div>
-                      <p className="item-meta">{item.color}</p>
-                      <p className="item-meta">{item.size}</p>
                       <div className="item-controls">
                         <div className="quantity-controls">
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.size, item.color, -1)
-                            }
-                          >
+                          <button onClick={() => updateQuantity(item.id, -1)}>
                             -
                           </button>
                           <span>{item.quantity}</span>
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.size, item.color, 1)
-                            }
-                          >
+                          <button onClick={() => updateQuantity(item.id, 1)}>
                             +
                           </button>
                         </div>
                         <button
                           className="remove-btn"
-                          onClick={() =>
-                            removeItem(item.id, item.size, item.color)
-                          }
+                          onClick={() => removeItem(item.id)}
                         >
                           Remove
                         </button>

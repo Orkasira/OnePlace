@@ -29,12 +29,12 @@ function ProductPage() {
     const GetAllProducts = async () => {
       try {
         let allProducts = [];
-        let page = 1;
-        let totalPages = 1;
+        let skip = 0;
+        const limit = 10;
 
-        do {
+        while (true) {
           const res = await fetch(
-            `https://api.redseam.redberryinternship.ge/api/products?page=${page}`,
+            `https://dummyjson.com/products?limit=${limit}&skip=${skip}`,
             {
               headers: {
                 accept: "application/json",
@@ -43,17 +43,36 @@ function ProductPage() {
           );
 
           const result = await res.json();
+          const fetchedProducts = Array.isArray(result.products)
+            ? result.products
+            : [];
 
-          allProducts = [...allProducts, ...result.data];
+          if (fetchedProducts.length === 0) break;
 
-          totalPages = result.meta.last_page;
+          allProducts = [...allProducts, ...fetchedProducts];
 
-          page++;
-        } while (page <= totalPages);
+          if (
+            result.total === undefined ||
+            allProducts.length >= result.total
+          ) {
+            break;
+          }
 
-        setProducts(allProducts);
+          skip += limit;
+        }
 
-        setOriginalProducts(allProducts);
+        const normalizedProducts = allProducts.map((product) => ({
+          ...product,
+          name: product.title || product.name || "Unnamed Product",
+          cover_image:
+            product.thumbnail ||
+            product.images?.[0] ||
+            product.cover_image ||
+            "",
+        }));
+
+        setProducts(normalizedProducts);
+        setOriginalProducts(normalizedProducts);
       } catch (err) {
         console.error("Error:", err);
       }

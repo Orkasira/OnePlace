@@ -3,13 +3,11 @@ header {
   display: flex;
   justify-content: space-between;
 }
-header .logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: #10151f;
+header .OnePlace {
+  position: absolute;
+  width: 150px;
+  margin-top: -30px;
+  border-radius: 50%;
 }
 header .login .flags {
   display: flex;
