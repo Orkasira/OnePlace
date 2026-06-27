@@ -34,7 +34,7 @@ function ProductPage() {
 
         while (true) {
           const res = await fetch(
-            `https://dummyjson.com/products?limit=${limit}&skip=${skip}`,
+            `https://oneplace-production-0q4o50.laravel.cloud/api/products`,
             {
               headers: {
                 accept: "application/json",

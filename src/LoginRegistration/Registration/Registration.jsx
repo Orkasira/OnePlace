@@ -130,7 +130,7 @@ function Registration({ onRegister }) {
       }
 
       const res = await fetch(
-        "https://api.redseam.redberryinternship.ge/api/register",
+        "https://oneplace-production-0q4o50.laravel.cloud/api/register",
         {
           method: "POST",
           headers: {

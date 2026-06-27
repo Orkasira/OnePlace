@@ -59,7 +59,7 @@ function Login({ onLogin }) {
       formData.append("password", form.password);
 
       const res = await fetch(
-        "https://api.redseam.redberryinternship.ge/api/login",
+        "https://oneplace-production-0q4o50.laravel.cloud/api/login",
         {
           method: "POST",
           headers: {
@@ -71,9 +71,11 @@ function Login({ onLogin }) {
 
       const data = await res.json();
 
+      console.log(data);
+
       if (res.status === 200) {
         const loggedUser = {
-          username: data.username,
+          username: form.email.split("@")[0],
           email: data.email,
           photo: data.profile_photo || defaultphoto,
         };
@@ -140,9 +142,7 @@ function Login({ onLogin }) {
                 </span>
 
                 {passwordError && (
-                  <div className="pass-validation-errors">
-                    {passwordError}
-                  </div>
+                  <div className="pass-validation-errors">{passwordError}</div>
                 )}
               </div>
             </div>

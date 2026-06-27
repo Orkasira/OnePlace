@@ -11,6 +11,8 @@ function Header({ user, onLogout, cartItems, setCartItems }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
+  const displayName =
+    user?.username || user?.name || user?.email?.split("@")[0] || "User";
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
@@ -93,7 +95,12 @@ function Header({ user, onLogout, cartItems, setCartItems }) {
               style={{ cursor: "pointer", marginLeft: "10px" }}
             />
             <img
-              src={user.photo || defaultUser}
+              src={
+                user?.photo ||
+                user?.profile_photo ||
+                user?.avatar ||
+                defaultUser
+              }
               alt="user photo"
               className="user-photo"
             />
@@ -106,7 +113,7 @@ function Header({ user, onLogout, cartItems, setCartItems }) {
             />
             {showDropdown && (
               <div className="dropdown">
-                <p>{user.username}</p>
+                <p>{displayName}</p>
                 <button onClick={handleLogout}>Log out</button>
               </div>
             )}
