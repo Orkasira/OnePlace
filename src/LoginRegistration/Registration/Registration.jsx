@@ -5,45 +5,105 @@ import { Link, useNavigate } from "react-router-dom";
 import eyeview from "../../assets/eyeview.png";
 import eyehide from "../../assets/eyehide.png";
 import defaultphoto from "../../assets/defaultphoto.jpg";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 function Registration({ onRegister }) {
-  const [usernameError, setUsernameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmError, setConfirmError] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-  });
-
   const [photoFile, setPhotoFile] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(defaultphoto);
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  // registration validation
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .min(3, "Username must be at least 3 characters")
+        .required("This field is required."),
+
+      email: Yup.string()
+        .email("Please enter valid email")
+        .required("This field is required."),
+
+      password: Yup.string()
+        .min(3, "Password must be at least 3 characters")
+        .required("This field is required."),
+
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords do not match")
+        .required("This field is required."),
+    }),
+
+    onSubmit: async (values, { resetForm }) => {
+      setUsernameError("");
+      setEmailError("");
+      setPasswordError("");
+
+      try {
+        const formData = new FormData();
+
+        formData.append("username", values.username);
+        formData.append("email", values.email);
+        formData.append("password", values.password);
+        formData.append("password_confirmation", values.confirmPassword);
+
+        if (photoFile) {
+          formData.append("avatar", photoFile);
+        }
+
+        const res = await fetch(
+          "https://oneplace-production-0q4o50.laravel.cloud/api/register",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+            },
+            body: formData,
+          },
+        );
+
+        const data = await res.json();
+
+        console.log(data);
+
+        if (!res.ok) {
+          setUsernameError(data.errors?.username?.[0] || "");
+          setEmailError(data.errors?.email?.[0] || "");
+          setPasswordError(data.errors?.password?.[0] || "");
+          return;
+        }
+
+        const newUser = {
+          username: values.username,
+          email: values.email,
+          profile_photo: photoPreview,
+        };
+
+        onRegister?.(newUser);
+        resetForm();
+        setPhotoFile(null);
+        setPhotoPreview(defaultphoto);
+        navigate("/ProductPage");
+      } catch (err) {
+        console.error("Server Error:", err);
+        setPasswordError("Registration failed. Please try again.");
+      }
+    },
+  });
 
   const navigate = useNavigate();
-
-  // handle input change
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    // clear errors while typing
-
-    if (name === "username") setUsernameError("");
-    if (name === "email") setEmailError("");
-    if (name === "password") setPasswordError("");
-    if (name === "password_confirmation") setConfirmError("");
-  };
 
   // handle file change
 
@@ -73,118 +133,13 @@ function Registration({ onRegister }) {
     setShowConfirm((prev) => !prev);
   };
 
-  // submit
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setUsernameError("");
-    setEmailError("");
-    setPasswordError("");
-    setConfirmError("");
-
-    let valid = true;
-
-    // username validation
-
-    if (form.username.trim().length < 3) {
-      setUsernameError("Username must be at least 3 characters");
-      valid = false;
-    }
-
-    // email validation
-
-    if (!form.email.includes("@")) {
-      setEmailError("Please enter valid email");
-      valid = false;
-    }
-
-    // password validation
-
-    if (form.password.length < 3) {
-      setPasswordError("Password must be at least 3 characters");
-      valid = false;
-    }
-
-    // confirm password
-
-    if (form.password !== form.password_confirmation) {
-      setConfirmError("Passwords do not match");
-      valid = false;
-    }
-
-    if (!valid) return;
-
-    try {
-      const formData = new FormData();
-
-      formData.append("username", form.username);
-      formData.append("email", form.email);
-      formData.append("password", form.password);
-      formData.append("password_confirmation", form.password_confirmation);
-
-      // IMPORTANT
-
-      if (photoFile) {
-        formData.append("avatar", photoFile);
-      }
-
-      const res = await fetch(
-        "https://oneplace-production-0q4o50.laravel.cloud/api/register",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-          },
-          body: formData,
-        },
-      );
-
-      const data = await res.json();
-
-      console.log(data);
-
-      // API validation errors
-
-      if (!res.ok) {
-        if (data.errors?.username) {
-          setUsernameError(data.errors.username[0]);
-        }
-
-        if (data.errors?.email) {
-          setEmailError(data.errors.email[0]);
-        }
-
-        if (data.errors?.password) {
-          setPasswordError(data.errors.password[0]);
-        }
-
-        return;
-      }
-
-      // success
-
-      const newUser = {
-        username: form.username,
-        email: form.email,
-        profile_photo: photoPreview,
-      };
-
-      onRegister(newUser);
-
-      navigate("/ProductPage");
-    } catch (err) {
-      console.error("Server Error:", err);
-    }
-  };
-
   return (
     <div className="registration-container">
       <div className="photo-container">
         <img src={photo} alt="photo" className="photo" />
       </div>
 
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={formik.handleSubmit}>
         <h1 className="registration-title">Registration</h1>
 
         <div className="form-inputs-container">
@@ -223,14 +178,16 @@ function Registration({ onRegister }) {
               type="text"
               name="username"
               placeholder="Username *"
-              value={form.username}
-              onChange={handleChange}
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="inputs"
             />
 
-            {usernameError && (
-              <div className="validation-errors">{usernameError}</div>
-            )}
+            <div className="validation-errors">
+              {(formik.touched.username && formik.errors.username) ||
+                usernameError}
+            </div>
 
             {/* email */}
 
@@ -238,14 +195,15 @@ function Registration({ onRegister }) {
               type="email"
               name="email"
               placeholder="Email *"
-              value={form.email}
-              onChange={handleChange}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="inputs"
             />
 
-            {emailError && (
-              <div className="validation-errors">{emailError}</div>
-            )}
+            <div className="validation-errors">
+              {(formik.touched.email && formik.errors.email) || emailError}
+            </div>
 
             {/* password */}
 
@@ -254,8 +212,9 @@ function Registration({ onRegister }) {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Password *"
-                value={form.password}
-                onChange={handleChange}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 className="inputs"
               />
 
@@ -267,9 +226,10 @@ function Registration({ onRegister }) {
                 />
               </span>
 
-              {passwordError && (
-                <div className="pass-validation-errors">{passwordError}</div>
-              )}
+              <div className="pass-validation-errors">
+                {(formik.touched.password && formik.errors.password) ||
+                  passwordError}
+              </div>
             </div>
 
             {/* confirm password */}
@@ -277,10 +237,11 @@ function Registration({ onRegister }) {
             <div style={{ position: "relative" }}>
               <input
                 type={showConfirm ? "text" : "password"}
-                name="password_confirmation"
+                name="confirmPassword"
                 placeholder="Confirm Password *"
-                value={form.password_confirmation}
-                onChange={handleChange}
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 className="inputs"
               />
 
@@ -292,9 +253,10 @@ function Registration({ onRegister }) {
                 />
               </span>
 
-              {confirmError && (
-                <div className="pass-validation-errors">{confirmError}</div>
-              )}
+              <div className="pass-validation-errors">
+                {formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword}
+              </div>
             </div>
           </div>
 

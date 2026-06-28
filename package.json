@@ -12,10 +12,12 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.19.0",
     "@supabase/server": "^1.2.0",
+    "formik": "^2.4.9",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
-    "sass": "^1.93.2"
+    "sass": "^1.93.2",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
