@@ -13,8 +13,11 @@
     "@auth0/auth0-react": "^2.19.0",
     "@supabase/server": "^1.2.0",
     "formik": "^2.4.9",
+    "install": "^0.13.0",
+    "npm": "^11.18.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "^7.9.1",
     "sass": "^1.93.2",
     "yup": "^1.7.1"

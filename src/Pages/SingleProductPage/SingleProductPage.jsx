@@ -5,6 +5,7 @@ import "./SingleProductPage.css";
 import cart from "../../assets/cart.png";
 import errorcart from "../../assets/errorcart.png";
 import { Link } from "react-router-dom";
+import SingleProductSkeleton from "../../Components/Skeleton/SingleProductSkeleton";
 
 function SingleProductPage({ cartItems, setCartItems }) {
   const { id } = useParams();
@@ -13,6 +14,7 @@ function SingleProductPage({ cartItems, setCartItems }) {
   const [fade, setFade] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const deliveryPrice = 5;
   const navigate = useNavigate();
@@ -50,6 +52,8 @@ function SingleProductPage({ cartItems, setCartItems }) {
       } catch (err) {
         console.error("Error fetching product:", err);
         setProduct(null);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -132,9 +136,8 @@ function SingleProductPage({ cartItems, setCartItems }) {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <SingleProductSkeleton />;
+  if (!product) return <div>Not found</div>;
 
   return (
     <div className="product-details-container">

@@ -5,6 +5,7 @@ import PriceFilter from "../../assets/adjustments-horizontal.png";
 import "./ProductPage.css";
 import left from "../../assets/left.png";
 import right from "../../assets/right.png";
+import ProductSkeleton from "../../Components/Skeleton/ProductSkeleton.jsx";
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
@@ -16,6 +17,7 @@ function ProductPage() {
   const [activeFilter, setActiveFilter] = useState(null);
   const [activeSort, setActiveSort] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const productsPerPage = 10;
 
@@ -75,6 +77,8 @@ function ProductPage() {
         setOriginalProducts(normalizedProducts);
       } catch (err) {
         console.error("Error:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -304,23 +308,27 @@ function ProductPage() {
       </div>
 
       <div className="product-list">
-        {currentProducts.map((product) => (
-          <div
-            key={product.id}
-            className="product-card"
-            onClick={() => navigate(`/ProductPage/${product.id}`)}
-          >
-            <img
-              src={product.cover_image}
-              alt={product.name}
-              className="product-image"
-            />
+        {loading
+          ? Array.from({ length: 10 }).map((_, i) => (
+              <ProductSkeleton key={i} />
+            ))
+          : currentProducts.map((product) => (
+              <div
+                key={product.id}
+                className="product-card"
+                onClick={() => navigate(`/ProductPage/${product.id}`)}
+              >
+                <img
+                  src={product.cover_image}
+                  alt={product.name}
+                  className="product-image"
+                />
 
-            <h2 className="product-name">{product.name}</h2>
+                <h2 className="product-name">{product.name}</h2>
 
-            <p className="product-price">${product.price}</p>
-          </div>
-        ))}
+                <p className="product-price">${product.price}</p>
+              </div>
+            ))}
       </div>
 
       <div className="pagination-container">

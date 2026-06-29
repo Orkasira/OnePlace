@@ -2,12 +2,12 @@ import "./App.css";
 import { Route, Routes } from "react-router";
 import Login from "./LoginRegistration/Login/Login.jsx";
 import Registration from "./LoginRegistration/Registration/Registration.jsx";
-import Header from "./LoginRegistration/Header/Header.jsx";
-import ProductPage from "./Products/ProductPage/ProductPage.jsx";
-import SingleProductPage from "./Products/SingleProductPage/SingleProductPage.jsx";
-import Checkout from "./Products/Checkout/Checkout.jsx";
+import Header from "./Components/Header/Header.jsx";
+import ProductPage from "./Pages/ProductPage/ProductPage.jsx";
+import SingleProductPage from "./Pages/SingleProductPage/SingleProductPage.jsx";
+import Checkout from "./Pages/Checkout/Checkout.jsx";
 import { useState, useEffect } from "react";
-import Congrats from "./Products/Congrats/Congrats.jsx";
+import Congrats from "./Pages/Congrats/Congrats.jsx";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(() => {
