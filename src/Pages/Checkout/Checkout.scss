@@ -41,6 +41,14 @@
             @include input;
           }
         }
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          small {
+            color: red;
+          }
+        }
         .email-form {
           width: 566px;
           padding-left: 12px;
@@ -66,9 +74,9 @@
         margin-bottom: 40px;
         width: 460px;
         height: 134px;
-
+        gap: 20px;
         img {
-          width: 100px;
+          width: 150px;
           height: 134px;
           object-fit: cover;
           border-radius: 6px;
