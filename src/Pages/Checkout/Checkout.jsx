@@ -1,5 +1,5 @@
 import "./Checkout.css";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import * as Yup from "yup";
 function Checkout({ cartItems = [], setCartItems }) {
   const navigate = useNavigate();
   const deliveryPrice = 5;
+  const [submitError, setSubmitError] = useState("");
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -52,10 +53,71 @@ function Checkout({ cartItems = [], setCartItems }) {
         .min(4, "Minimum 4 digits")
         .required("Zip Code is required"),
     }),
-    onSubmit: () => {
-      navigate("/congrats");
+    onSubmit: async (values) => {
+      if (cartItems.length === 0) {
+        setSubmitError("Your cart is empty.");
+        return;
+      }
+
+      setSubmitError("");
+
+      try {
+        const response = await fetch(
+          "https://oneplace-production-0q4o50.laravel.cloud/api/orders",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              name: values.name,
+              surname: values.surname,
+              email: values.email,
+              address: values.address,
+              zipcode: values.zip,
+
+              items: cartItems.map((item) => ({
+                product_id: item.id,
+                quantity: item.quantity,
+              })),
+            }),
+          },
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          console.log(data);
+          setSubmitError(data?.message || "Order failed. Please try again.");
+          return;
+        }
+
+        console.log(data);
+        navigate("/congrats");
+      } catch (error) {
+        console.error(error);
+        setSubmitError(
+          "Something went wrong. Please check your connection and try again.",
+        );
+      }
     },
   });
+
+  const handlePayClick = async () => {
+    const errors = await formik.validateForm();
+    formik.setTouched({
+      name: true,
+      surname: true,
+      email: true,
+      address: true,
+      zip: true,
+    });
+
+    if (Object.keys(errors).length === 0) {
+      formik.submitForm();
+    }
+  };
 
   return (
     <div className="checkout-container">
@@ -205,12 +267,19 @@ function Checkout({ cartItems = [], setCartItems }) {
                   <p>${subtotal + deliveryPrice}</p>
                 </div>
 
+                {submitError && (
+                  <p className="checkout-error" style={{ color: "red" }}>
+                    {submitError}
+                  </p>
+                )}
+
                 <button
                   type="button"
                   className="checkout-pay"
-                  onClick={formik.submitForm}
+                  onClick={handlePayClick}
+                  disabled={formik.isSubmitting}
                 >
-                  Pay
+                  {formik.isSubmitting ? "Processing..." : "Pay"}
                 </button>
               </div>
             </>

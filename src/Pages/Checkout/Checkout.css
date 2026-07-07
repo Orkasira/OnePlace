@@ -1,3 +1,7 @@
+#root {
+  height: 130vh;
+}
+
 .checkout-container {
   margin: 72px 100px 0 100px;
 }
@@ -29,20 +33,11 @@
   flex-direction: column;
   gap: 33px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-form
-  .form-container
-  .form-names {
+.checkout-container .checkout-content .checkout-form .form-container .form-names {
   display: flex;
   gap: 24px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-form
-  .form-container
-  .form-names
-  input {
+.checkout-container .checkout-content .checkout-form .form-container .form-names input {
   width: 265px;
   height: 42px;
   border: none;
@@ -50,48 +45,26 @@
   padding-left: 12px;
   border: 1px solid #e1dfe1;
 }
-.checkout-container
-  .checkout-content
-  .checkout-form
-  .form-container
-  .form-group {
+.checkout-container .checkout-content .checkout-form .form-container .form-group {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-form
-  .form-container
-  .form-group
-  small {
+.checkout-container .checkout-content .checkout-form .form-container .form-group small {
   color: red;
 }
-.checkout-container
-  .checkout-content
-  .checkout-form
-  .form-container
-  .email-form {
+.checkout-container .checkout-content .checkout-form .form-container .email-form {
   width: 566px;
   padding-left: 12px;
   border-radius: 8px;
   border: 1px solid #e1dfe1;
   height: 42px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-form
-  .form-container
-  .form-address {
+.checkout-container .checkout-content .checkout-form .form-container .form-address {
   display: flex;
   gap: 24px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-form
-  .form-container
-  .form-address
-  input {
+.checkout-container .checkout-content .checkout-form .form-container .form-address input {
   width: 265px;
   height: 42px;
   border: none;
@@ -115,59 +88,32 @@
   width: 150px;
   height: 134px;
   -o-object-fit: cover;
-  object-fit: cover;
+     object-fit: cover;
   border-radius: 6px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info {
   width: 343px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .item-header {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .item-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .items-control {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .items-control {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .items-control
-  .quantity-control {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .items-control .quantity-control {
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 6px;
   overflow: hidden;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .items-control
-  .quantity-control
-  button {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .items-control .quantity-control button {
   background: none;
   border: none;
   padding: 6px 10px;
@@ -175,23 +121,10 @@
   font-size: 16px;
   color: #3e424a;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .items-control
-  .quantity-control
-  span {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .items-control .quantity-control span {
   padding: 0 10px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .items-control
-  .remove-btn {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .items-control .remove-btn {
   background: none;
   border: none;
   color: #3e424a;
@@ -199,31 +132,15 @@
   font-size: 12px;
   font-weight: 400;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  p {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info p {
   margin: 2px 0;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .quantity-controls {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .quantity-controls {
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .quantity-controls
-  button {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .quantity-controls button {
   width: 28px;
   height: 28px;
   border: none;
@@ -231,22 +148,10 @@
   border-radius: 4px;
   cursor: pointer;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .quantity-controls
-  button:hover {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .quantity-controls button:hover {
   background-color: #ccc;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  .item-info
-  .quantity-controls
-  span {
+.checkout-container .checkout-content .checkout-items .checkout-item .item-info .quantity-controls span {
   min-width: 20px;
   text-align: center;
 }
@@ -259,16 +164,11 @@
   border-radius: 4px;
   cursor: pointer;
 }
-.checkout-container
-  .checkout-content
-  .checkout-items
-  .checkout-item
-  button:hover {
+.checkout-container .checkout-content .checkout-items .checkout-item button:hover {
   background-color: #ff4c4c;
 }
 .checkout-container .checkout-content .checkout-summary {
   width: 460px;
-  margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ccc;
   margin-top: 100px;
@@ -357,4 +257,4 @@
   .checkout-container .checkout-items {
     max-height: 350px;
   }
-} /*# sourceMappingURL=Checkout.css.map */
+}/*# sourceMappingURL=Checkout.css.map */
