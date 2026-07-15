@@ -1,4 +1,3 @@
-import "./App.css";
 import { Route, Routes } from "react-router";
 import Login from "./LoginRegistration/Login/Login.jsx";
 import Registration from "./LoginRegistration/Registration/Registration.jsx";
