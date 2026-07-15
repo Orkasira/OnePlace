@@ -54,6 +54,11 @@
 }
 .login-container .form-container .form-inputs-container .input-container .passwordInputToggle {
   display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.login-container .form-container .form-inputs-container .input-container .passwordInputToggle .password-container {
+  display: flex;
 }
 .login-container .form-container .form-inputs-container .input-container .passwordInputToggle .passInput {
   width: 560px;
@@ -74,7 +79,7 @@
   font-size: 0.9em;
   margin-top: -15px;
   margin-bottom: -15px;
-  margin-top: -40px;
+  margin-top: 5px;
 }
 .login-container .form-container .login-btn {
   padding: 10px 274px;

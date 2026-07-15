@@ -56,6 +56,11 @@
         }
         .passwordInputToggle {
           display: flex;
+          flex-direction: column;
+          margin-top: 10px;
+          .password-container {
+            display: flex;
+          }
           .passInput {
             @include input;
           }
@@ -68,7 +73,7 @@
           }
           .pass-validation-errors {
             @include errors;
-            margin-top: -40px;
+            margin-top: 5px;
           }
         }
       }

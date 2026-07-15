@@ -124,22 +124,24 @@ function Login({ onLogin }) {
               )}
 
               <div className="passwordInputToggle">
-                <input
-                  type={show ? "text" : "password"}
-                  name="password"
-                  placeholder="Password *"
-                  onChange={handleChange}
-                  value={form.password}
-                  className="passInput"
-                />
+                <div className="password-container">
+                  <input
+                    type={show ? "text" : "password"}
+                    name="password"
+                    placeholder="Password *"
+                    onChange={handleChange}
+                    value={form.password}
+                    className="passInput"
+                  />
 
-                <span onClick={togglePassword}>
-                  {show ? (
-                    <img src={eyeview} alt="eye" className="eye" />
-                  ) : (
-                    <img src={eyehide} alt="eye" className="eye" />
-                  )}
-                </span>
+                  <span onClick={togglePassword}>
+                    {show ? (
+                      <img src={eyeview} alt="eye" className="eye" />
+                    ) : (
+                      <img src={eyehide} alt="eye" className="eye" />
+                    )}
+                  </span>
+                </div>
 
                 {passwordError && (
                   <div className="pass-validation-errors">{passwordError}</div>
