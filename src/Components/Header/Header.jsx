@@ -87,159 +87,170 @@ function Header({ user, onLogout, cartItems, setCartItems }) {
         <img src={OnePlace} alt="logo" className="OnePlace" />
       </Link>
 
-      <button onClick={toggleTheme}>{theme === "light" ? "🌙" : "☀️"}</button>
-
-      <p>{theme}</p>
-
-      <div className="login">
-        {user ? (
-          <div className="user-container">
-            <img
-              src={shoppingcart}
-              alt="cart"
-              className="cart-icon"
-              onClick={() => setShowSidebar(true)}
-              style={{ cursor: "pointer", marginLeft: "10px" }}
-            />
-            <img
-              src={
-                user?.photo ||
-                user?.profile_photo ||
-                user?.avatar ||
-                defaultUser
-              }
-              alt="user photo"
-              className="user-photo"
-            />
-            <img
-              src={arrow}
-              alt="arrow"
-              className="arrow-icon"
-              onClick={toggleDropdown}
-              style={{ cursor: "pointer" }}
-            />
-            {showDropdown && (
-              <div className="dropdown">
-                <p>{displayName}</p>
-                <button onClick={handleLogout}>Log out</button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <Link to="/" className="login-link">
-            <h2>Log in</h2>
-          </Link>
-        )}
-      </div>
-      {showSidebar && (
-        <div className="overlay" onClick={() => setShowSidebar(false)}>
-          <div className="sidebar" onClick={(e) => e.stopPropagation()}>
-            <div className="sidebar-header">
-              <h3>Shopping cart ({cartItems.length})</h3>
-              <button
-                className="close-btn"
-                onClick={() => setShowSidebar(false)}
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="sidebar-items">
-              {cartItems.length === 0 ? (
-                <div className="empty-cart">
-                  <img
-                    src={errorcart}
-                    alt="empty cart"
-                    className="empty-icon"
-                  />
-                  <h4>Ooops!</h4>
-                  <p>You’ve got nothing in your cart just yet…</p>
-                  <button
-                    className="shop-btn"
-                    onClick={() => setShowSidebar(false)}
-                  >
-                    <Link to="/ProductPage" className="shop-btn-link">
-                      Start shopping
-                    </Link>
-                  </button>
+      <div className="header-right">
+        <button onClick={toggleTheme} className="theme-toggle">
+          {theme === "light" ? "🌙" : "☀️"}
+        </button>
+        <div className="login">
+          {user ? (
+            <div className="user-container">
+              <img
+                src={shoppingcart}
+                alt="cart"
+                className="cart-icon"
+                onClick={() => setShowSidebar(true)}
+                style={{ cursor: "pointer", marginLeft: "10px" }}
+              />
+              <img
+                src={
+                  user?.photo ||
+                  user?.profile_photo ||
+                  user?.avatar ||
+                  defaultUser
+                }
+                alt="user photo"
+                className="user-photo"
+              />
+              <img
+                src={arrow}
+                alt="arrow"
+                className="arrow-icon"
+                onClick={toggleDropdown}
+                style={{ cursor: "pointer" }}
+              />
+              {showDropdown && (
+                <div className="dropdown">
+                  <p>{displayName}</p>
+                  <button onClick={handleLogout}>Log out</button>
                 </div>
-              ) : (
-                cartItems.map((item, index) => (
-                  <div key={index} className="cart-item">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="cart-item-img"
-                    />
-                    <div className="cart-item-info">
-                      <div className="item-header">
-                        <p className="item-name">{item.name}</p>
-                        <p className="item-price">$ {item.price}</p>
-                      </div>
-                      <p className="item-meta">{item.color}</p>
-                      <p className="item-meta">{item.size}</p>
-                      <div className="item-controls">
-                        <div className="quantity-controls">
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.size, item.color, -1)
-                            }
-                          >
-                            -
-                          </button>
-                          <span>{item.quantity}</span>
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.size, item.color, 1)
-                            }
-                          >
-                            +
-                          </button>
-                        </div>
-                        <button
-                          className="remove-btn"
-                          onClick={() =>
-                            removeItem(item.id, item.size, item.color)
-                          }
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))
               )}
             </div>
-
-            {cartItems.length > 0 && (
-              <div className="sidebar-footer">
-                <div className="summary">
-                  <div className="summary-row">
-                    <span>Items subtotal</span>
-                    <span>$ {subtotal}</span>
-                  </div>
-                  <div className="summary-row">
-                    <span>Delivery</span>
-                    <span>$ {deliveryPrice}</span>
-                  </div>
-                  <div className="summary-row total">
-                    <strong>Total</strong>
-                    <strong>$ {total}</strong>
-                  </div>
-                </div>
+          ) : (
+            <Link to="/" className="login-link">
+              <h2>Log in</h2>
+            </Link>
+          )}
+        </div>
+        {showSidebar && (
+          <div className="overlay" onClick={() => setShowSidebar(false)}>
+            <div className="sidebar" onClick={(e) => e.stopPropagation()}>
+              <div className="sidebar-header">
+                <h3>Shopping cart ({cartItems.length})</h3>
                 <button
-                  className="checkout-btn"
-                  onClick={() => {
-                    navigate("/Checkout");
-                  }}
+                  className="close-btn"
+                  onClick={() => setShowSidebar(false)}
                 >
-                  Go to checkout
+                  ✕
                 </button>
               </div>
-            )}
+
+              <div className="sidebar-items">
+                {cartItems.length === 0 ? (
+                  <div className="empty-cart">
+                    <img
+                      src={errorcart}
+                      alt="empty cart"
+                      className="empty-icon"
+                    />
+                    <h4>Ooops!</h4>
+                    <p>You’ve got nothing in your cart just yet…</p>
+                    <button
+                      className="shop-btn"
+                      onClick={() => setShowSidebar(false)}
+                    >
+                      <Link to="/ProductPage" className="shop-btn-link">
+                        Start shopping
+                      </Link>
+                    </button>
+                  </div>
+                ) : (
+                  cartItems.map((item, index) => (
+                    <div key={index} className="cart-item">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="cart-item-img"
+                      />
+                      <div className="cart-item-info">
+                        <div className="item-header">
+                          <p className="item-name">{item.name}</p>
+                          <p className="item-price">$ {item.price}</p>
+                        </div>
+                        <p className="item-meta">{item.color}</p>
+                        <p className="item-meta">{item.size}</p>
+                        <div className="item-controls">
+                          <div className="quantity-controls">
+                            <button
+                              onClick={() =>
+                                updateQuantity(
+                                  item.id,
+                                  item.size,
+                                  item.color,
+                                  -1,
+                                )
+                              }
+                            >
+                              -
+                            </button>
+                            <span>{item.quantity}</span>
+                            <button
+                              onClick={() =>
+                                updateQuantity(
+                                  item.id,
+                                  item.size,
+                                  item.color,
+                                  1,
+                                )
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                          <button
+                            className="remove-btn"
+                            onClick={() =>
+                              removeItem(item.id, item.size, item.color)
+                            }
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {cartItems.length > 0 && (
+                <div className="sidebar-footer">
+                  <div className="summary">
+                    <div className="summary-row">
+                      <span>Items subtotal</span>
+                      <span>$ {subtotal}</span>
+                    </div>
+                    <div className="summary-row">
+                      <span>Delivery</span>
+                      <span>$ {deliveryPrice}</span>
+                    </div>
+                    <div className="summary-row total">
+                      <strong>Total</strong>
+                      <strong>$ {total}</strong>
+                    </div>
+                  </div>
+                  <button
+                    className="checkout-btn"
+                    onClick={() => {
+                      navigate("/Checkout");
+                    }}
+                  >
+                    Go to checkout
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   );
 }

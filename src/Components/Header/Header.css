@@ -1,5 +1,5 @@
 header {
-  margin: 28px 100px;
+  margin: 35px 100px;
   display: flex;
   justify-content: space-between;
 }
@@ -9,36 +9,46 @@ header .OnePlace {
   margin-top: -30px;
   border-radius: 50%;
 }
-header .login .flags {
+header .header-right {
+  display: flex;
+  gap: 20px;
+}
+header .header-right .theme-toggle {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+header .header-right .login .flags {
   display: flex;
   gap: 8px;
   align-items: center;
   margin-right: 15px;
 }
-header .login .flags .flag-icon {
+header .header-right .login .flags .flag-icon {
   width: 24px;
   height: 24px;
   border-radius: 2px;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
-header .login .flags .flag-icon:hover {
+header .header-right .login .flags .flag-icon:hover {
   transform: scale(1.1);
 }
-header .login .user-container {
+header .header-right .login .user-container {
   position: relative;
   display: flex;
   align-items: center;
   gap: 5px;
 }
-header .login .user-photo {
+header .header-right .login .user-photo {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-header .login .dropdown {
+header .header-right .login .dropdown {
   width: 150px;
   position: absolute;
   top: 40px;
@@ -48,7 +58,7 @@ header .login .dropdown {
   flex-direction: column;
   gap: 5px;
 }
-header .login .dropdown button {
+header .header-right .login .dropdown button {
   background-color: #ff4000;
   border: none;
   color: white;
@@ -58,23 +68,23 @@ header .login .dropdown button {
   cursor: pointer;
   transition: 0.5s;
 }
-header .login .dropdown button:hover {
+header .header-right .login .dropdown button:hover {
   background-color: #8d2800;
 }
-header .login .arrow-icon {
+header .header-right .login .arrow-icon {
   padding: 5px;
 }
-header .login .login-link {
+header .header-right .login .login-link {
   text-decoration: none;
   color: #10151f;
 }
-header .login .login-link .login {
+header .header-right .login .login-link .login {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
-header .overlay {
+header .header-right .overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
@@ -82,7 +92,7 @@ header .overlay {
   justify-content: flex-end;
   z-index: 1000;
 }
-header .sidebar {
+header .header-right .sidebar {
   background: #fff;
   width: 460px;
   height: 92%;
@@ -91,35 +101,35 @@ header .sidebar {
   padding: 40px;
   position: relative;
 }
-header .sidebar-header {
+header .header-right .sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 63px;
 }
-header .sidebar-header h3 {
+header .header-right .sidebar-header h3 {
   font-size: 20px;
   font-weight: 500;
 }
-header .sidebar-header .close-btn {
+header .header-right .sidebar-header .close-btn {
   background: none;
   border: none;
   font-size: 22px;
   cursor: pointer;
 }
-header .sidebar-items {
+header .header-right .sidebar-items {
   flex: 1;
   overflow-y: auto;
   margin-right: -30px;
 }
-header .cart-item {
+header .header-right .cart-item {
   display: flex;
   align-items: flex-start;
   margin-bottom: 20px;
   width: 460px;
   height: 134px;
 }
-header .cart-item .cart-item-img {
+header .header-right .cart-item .cart-item-img {
   width: 100px;
   height: 134px;
   -o-object-fit: cover;
@@ -128,54 +138,54 @@ header .cart-item .cart-item-img {
   border: 1px solid #eee;
   border-radius: 6px;
 }
-header .cart-item .cart-item-info {
+header .header-right .cart-item .cart-item-info {
   height: 100%;
   width: 343px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-header .cart-item .cart-item-info .item-header {
+header .header-right .cart-item .cart-item-info .item-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-header .cart-item .cart-item-info .item-header .item-name {
+header .header-right .cart-item .cart-item-info .item-header .item-name {
   font-weight: 500;
   margin-bottom: 4px;
 }
-header .cart-item .cart-item-info .item-header .item-price {
+header .header-right .cart-item .cart-item-info .item-header .item-price {
   font-weight: 500;
 }
-header .cart-item .cart-item-info .item-meta {
+header .header-right .cart-item .cart-item-info .item-meta {
   color: #666;
   font-size: 14px;
   margin-bottom: 8px;
 }
-header .cart-item .cart-item-info .item-controls {
+header .header-right .cart-item .cart-item-info .item-controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-header .cart-item .cart-item-info .item-controls .quantity-controls {
+header .header-right .cart-item .cart-item-info .item-controls .quantity-controls {
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 6px;
   overflow: hidden;
 }
-header .cart-item .cart-item-info .item-controls .quantity-controls button {
+header .header-right .cart-item .cart-item-info .item-controls .quantity-controls button {
   background: none;
   border: none;
   padding: 6px 10px;
   cursor: pointer;
   font-size: 16px;
 }
-header .cart-item .cart-item-info .item-controls .quantity-controls span {
+header .header-right .cart-item .cart-item-info .item-controls .quantity-controls span {
   padding: 0 10px;
 }
-header .cart-item .cart-item-info .item-controls .remove-btn {
+header .header-right .cart-item .cart-item-info .item-controls .remove-btn {
   background: none;
   border: none;
   color: #3e424a;
@@ -183,24 +193,24 @@ header .cart-item .cart-item-info .item-controls .remove-btn {
   font-size: 12px;
   font-weight: 400;
 }
-header .sidebar-footer {
+header .header-right .sidebar-footer {
   border-top: 1px solid #eee;
   padding-top: 16px;
 }
-header .sidebar-footer .summary {
+header .header-right .sidebar-footer .summary {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-header .sidebar-footer .summary .summary-row {
+header .header-right .sidebar-footer .summary .summary-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
 }
-header .sidebar-footer .summary .summary-row.total {
+header .header-right .sidebar-footer .summary .summary-row.total {
   font-size: 16px;
 }
-header .sidebar-footer .checkout-btn {
+header .header-right .sidebar-footer .checkout-btn {
   width: 100%;
   background: #ff3b00;
   color: #fff;
@@ -212,30 +222,30 @@ header .sidebar-footer .checkout-btn {
   cursor: pointer;
   margin-top: 110px;
 }
-header .sidebar-footer .checkout-btn:hover {
+header .header-right .sidebar-footer .checkout-btn:hover {
   background: #e63500;
 }
-header .empty-cart {
+header .header-right .empty-cart {
   text-align: center;
 }
-header .empty-cart .empty-icon {
+header .header-right .empty-cart .empty-icon {
   width: 170px;
   height: 135px;
   margin: 150px 0 20px 0;
 }
-header .empty-cart h4 {
+header .header-right .empty-cart h4 {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 10px;
   color: #10151f;
 }
-header .empty-cart p {
+header .header-right .empty-cart p {
   color: #3e424a;
   margin-bottom: 20px;
   font-size: 16px;
   font-weight: 400;
 }
-header .empty-cart .shop-btn {
+header .header-right .empty-cart .shop-btn {
   background: #ff3b00;
   color: #fff;
   border: none;
@@ -245,14 +255,14 @@ header .empty-cart .shop-btn {
   cursor: pointer;
   margin-top: 60px;
 }
-header .empty-cart .shop-btn .shop-btn-link {
+header .header-right .empty-cart .shop-btn .shop-btn-link {
   font-size: 14px;
   font-weight: 400;
   color: #ffffff;
   text-decoration: none;
   padding: 10px 56px;
 }
-header .empty-cart .shop-btn:hover {
+header .header-right .empty-cart .shop-btn:hover {
   background: #e63500;
 }
 
