@@ -124,6 +124,24 @@
   text-decoration: none;
 }
 
+body.dark .registration-container {
+  background: #202020;
+}
+body.dark .registration-container .form-container .registration-title {
+  color: white;
+}
+body.dark .registration-container .form-container .form-inputs-container .input-container .photo-upload-container .upload-label {
+  color: #ccc;
+}
+body.dark .registration-container .form-container .form-inputs-container .input-container .inputs {
+  background: #2a2a2a;
+  color: white;
+  border-color: #333;
+}
+body.dark .registration-container .form-container .register-link-container {
+  color: #ccc;
+}
+
 @media (max-width: 1400px) {
   .registration-container .form-container .form-inputs-contianer .input-container .inputs {
     width: 100px;

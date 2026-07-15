@@ -266,6 +266,29 @@ header .header-right .empty-cart .shop-btn:hover {
   background: #e63500;
 }
 
+body.dark header .header-right .login .login-link {
+  color: white;
+}
+body.dark header .header-right .sidebar {
+  background: #1f1f1f;
+  color: white;
+}
+body.dark header .header-right .sidebar-header h3 {
+  color: white;
+}
+body.dark header .header-right .cart-item .cart-item-info .item-meta {
+  color: #ccc;
+}
+body.dark header .header-right .sidebar-footer {
+  border-top: 1px solid #333;
+}
+body.dark header .header-right .empty-cart h4 {
+  color: white;
+}
+body.dark header .header-right .empty-cart p {
+  color: #ccc;
+}
+
 @media (max-width: 900px) {
   header {
     margin: 28px 40px;

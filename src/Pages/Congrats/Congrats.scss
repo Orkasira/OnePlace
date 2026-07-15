@@ -42,6 +42,19 @@
   }
 }
 
+body.dark {
+  .congrats-container {
+    .congrats-content {
+      .congrats-title {
+        color: white;
+      }
+      .congrats-para {
+        color: #ccc;
+      }
+    }
+  }
+}
+
 @media (max-width: 1400px) {
   .congrats-container {
     .congrats-content {

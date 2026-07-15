@@ -298,6 +298,50 @@ header {
   }
 }
 
+body.dark {
+  header {
+    .header-right {
+      .login {
+        .login-link {
+          color: white;
+        }
+      }
+
+      .sidebar {
+        background: #1f1f1f;
+        color: white;
+      }
+
+      .sidebar-header {
+        h3 {
+          color: white;
+        }
+      }
+
+      .cart-item {
+        .cart-item-info {
+          .item-meta {
+            color: #ccc;
+          }
+        }
+      }
+
+      .sidebar-footer {
+        border-top: 1px solid #333;
+      }
+
+      .empty-cart {
+        h4 {
+          color: white;
+        }
+        p {
+          color: #ccc;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 900px) {
   header {
     margin: 28px 40px;

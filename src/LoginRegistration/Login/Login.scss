@@ -98,6 +98,33 @@
   }
 }
 
+body.dark {
+  .login-container {
+    background: #202020;
+
+    .form-container {
+      .login-title {
+        color: white;
+      }
+
+      .form-inputs-container {
+        .input-container {
+          .emailInput,
+          .passwordInputToggle .passInput {
+            background: #2a2a2a;
+            color: white;
+            border-color: #333;
+          }
+        }
+      }
+
+      .register-link-container {
+        color: #ccc;
+      }
+    }
+  }
+}
+
 @media (max-width: 1400px) {
   .login-container {
     .photo-container {

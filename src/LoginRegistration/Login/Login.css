@@ -99,6 +99,22 @@
   text-decoration: none;
 }
 
+body.dark .login-container {
+  background: #202020;
+}
+body.dark .login-container .form-container .login-title {
+  color: white;
+}
+body.dark .login-container .form-container .form-inputs-container .input-container .emailInput,
+body.dark .login-container .form-container .form-inputs-container .input-container .passwordInputToggle .passInput {
+  background: #2a2a2a;
+  color: white;
+  border-color: #333;
+}
+body.dark .login-container .form-container .register-link-container {
+  color: #ccc;
+}
+
 @media (max-width: 1400px) {
   .login-container .photo-container .photo {
     width: 1000px;

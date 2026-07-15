@@ -125,6 +125,36 @@
   }
 }
 
+body.dark {
+  .registration-container {
+    background: #202020;
+
+    .form-container {
+      .registration-title {
+        color: white;
+      }
+
+      .form-inputs-container {
+        .input-container {
+          .photo-upload-container .upload-label {
+            color: #ccc;
+          }
+
+          .inputs {
+            background: #2a2a2a;
+            color: white;
+            border-color: #333;
+          }
+        }
+      }
+
+      .register-link-container {
+        color: #ccc;
+      }
+    }
+  }
+}
+
 @media (max-width: 1400px) {
   .registration-container {
     .form-container {

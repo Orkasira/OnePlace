@@ -320,6 +320,57 @@
   background: #e63500;
 }
 
+body.dark .product-details-container {
+  background: #202020;
+  color: white;
+}
+body.dark .product-details-container .product-detail-wrapper .all-products-photos .single-photo {
+  border-color: #333;
+}
+body.dark .product-details-container .product-detail-wrapper .product-detail-content .product-name,
+body.dark .product-details-container .product-detail-wrapper .product-detail-content .product-price {
+  color: white;
+}
+body.dark .product-details-container .product-detail-wrapper .color-name,
+body.dark .product-details-container .product-detail-wrapper .size-name,
+body.dark .product-details-container .product-detail-wrapper .quantity-name {
+  color: white;
+}
+body.dark .product-details-container .product-detail-wrapper .product-sizes .size-box {
+  border-color: #333;
+}
+body.dark .product-details-container .product-detail-wrapper .quantity-select {
+  background: #1f1f1f;
+  color: white;
+  border-color: #333;
+}
+body.dark .product-details-container .product-detail-wrapper .quantity-select option {
+  color: white;
+  background: #1f1f1f;
+}
+body.dark .product-details-container .product-detail-wrapper .hor-line {
+  background-color: #333;
+}
+body.dark .product-details-container .product-detail-wrapper .product-description-container .product-brand {
+  color: white;
+}
+body.dark .product-details-container .sidebar {
+  background: #1f1f1f;
+  color: white;
+}
+body.dark .product-details-container .sidebar-header h3 {
+  color: white;
+}
+body.dark .product-details-container .cart-item .cart-item-info .item-meta {
+  color: #ccc;
+}
+body.dark .product-details-container .empty-cart h4 {
+  color: white;
+}
+body.dark .product-details-container .empty-cart p {
+  color: #ccc;
+}
+
 @media (max-width: 1550px) {
   .product-details-container {
     margin: 0 120px;
