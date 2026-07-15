@@ -3,14 +3,17 @@ import OnePlace from "../../assets/OnePlace.png";
 import defaultUser from "../../assets/defaultphoto.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import arrow from "../../assets/arrow.png";
-import react, { useState } from "react";
+import react, { useState, useContext } from "react";
 import shoppingcart from "../../assets/shoppingcart.png";
 import errorcart from "../../assets/errorcart.png";
+import { ThemeContext } from "../Theme/ThemeContext";
 
 function Header({ user, onLogout, cartItems, setCartItems }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   const displayName =
     user?.username || user?.name || user?.email?.split("@")[0] || "User";
   const subtotal = cartItems.reduce(
@@ -83,6 +86,10 @@ function Header({ user, onLogout, cartItems, setCartItems }) {
       <Link to="/ProductPage" className="logo">
         <img src={OnePlace} alt="logo" className="OnePlace" />
       </Link>
+
+      <button onClick={toggleTheme}>{theme === "light" ? "🌙" : "☀️"}</button>
+
+      <p>{theme}</p>
 
       <div className="login">
         {user ? (

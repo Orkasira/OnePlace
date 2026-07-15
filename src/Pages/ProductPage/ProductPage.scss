@@ -407,3 +407,27 @@
     }
   }
 }
+
+body.dark {
+  .product-page-container {
+    background: #121212;
+    color: white;
+
+    .title,
+    .showing-pages,
+    .sort-btn,
+    .active-tag {
+      color: white;
+    }
+
+    .product-list .product-card .product-name,
+    .product-list .product-card .product-price {
+      color: white;
+    }
+
+    .sort-menu,
+    .price-filter-popup {
+      background: #1f1f1f;
+    }
+  }
+}

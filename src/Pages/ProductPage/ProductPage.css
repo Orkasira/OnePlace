@@ -348,4 +348,22 @@
   .product-page-container .filter .product-list .product-card .product-price {
     font-size: 13px;
   }
+}
+body.dark .product-page-container {
+  background: #121212;
+  color: white;
+}
+body.dark .product-page-container .title,
+body.dark .product-page-container .showing-pages,
+body.dark .product-page-container .sort-btn,
+body.dark .product-page-container .active-tag {
+  color: white;
+}
+body.dark .product-page-container .product-list .product-card .product-name,
+body.dark .product-page-container .product-list .product-card .product-price {
+  color: white;
+}
+body.dark .product-page-container .sort-menu,
+body.dark .product-page-container .price-filter-popup {
+  background: #1f1f1f;
 }/*# sourceMappingURL=ProductPage.css.map */
